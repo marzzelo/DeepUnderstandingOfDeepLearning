@@ -1,4 +1,4 @@
-def showAxes(plt, color="lightgray", linewidth=1, grid=False):
+def showAxes(plt, color="gray", linewidth=1, axis_x=True, axis_y=True, grid=False, grid_x=True, grid_y=True):
     ''' 
     Show the x and y axes with gray tiny lines.
      
@@ -13,10 +13,17 @@ def showAxes(plt, color="lightgray", linewidth=1, grid=False):
     grid : bool, optional
         Whether to show the grid. The default is False.
     '''
-    plt.axhline(0, color=color, linestyle="-", linewidth=linewidth)
-    plt.axvline(0, color=color, linestyle="-", linewidth=linewidth)
-    if (grid):
-        plt.grid(True, color='lightgray', linestyle="--", linewidth=0.5)
+    if axis_x:
+        plt.axhline(0, color=color, linestyle="-", linewidth=linewidth)
+        
+    if axis_y:
+        plt.axvline(0, color=color, linestyle="-", linewidth=linewidth)
+        
+    if grid:
+        if grid_x:
+            plt.grid(axis="x", color='lightgray', linestyle="--", linewidth=linewidth)
+        if grid_y:
+            plt.grid(axis="y", color='lightgray', linestyle="--", linewidth=linewidth)
 
 
 
