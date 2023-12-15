@@ -1,0 +1,9 @@
+.venv
+# ignore __pycache__ sub directories
+*/__pycache__/*
+# ignore .pyc files
+*.pyc
+# ignore .idea directory
+.idea/
+# ignore .DS_Store files
+.DS_Store
