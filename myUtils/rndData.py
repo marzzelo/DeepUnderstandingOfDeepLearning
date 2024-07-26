@@ -7,29 +7,29 @@ import matplotlib.pyplot as plt
 import sys
 sys.path.append("../myUtils")  # add parent directory to path to import myGraph
 
-import myGraph
-import text
+import myUtils.rndData as rndData
+import myUtils.text as text
 import ...
 '''
 
 
 def createData(nPerClust, locations, labels=None, blur=1, xyLabels=('x', 'y'), title='Data', plot=False):
-    ''' 
+    """
     nPerClust: number of points per cluster
     locations: list of locations of clusters, eg.: [[1,1],[5,1],...]
     labels: list of labels per cluster, eg.: [0,1,...] (default: [0,1,...])
     blur: standard deviation of gaussian noise (default: 1)
-    
+
     returns: data, labels, clusters
     data: tensor of size (2n x 2) (2n points, 2 dimensions)
     labels: tensor of size (2n x 1) (2n points, 1 dimension)
     clusters: list of clusters, each cluster is a list of 2 lists (x and y coordinates)
-    
+
     plot using:
     for i,cluster in enumerate(clusters):
         plt.scatter(cluster[0], cluster[1], label=i)
-    
-    '''
+
+    """
     def noise():
         return np.random.randn(nPerClust)*blur
 
