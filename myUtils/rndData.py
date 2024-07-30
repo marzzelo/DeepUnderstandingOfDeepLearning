@@ -1,7 +1,6 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import torch.nn as nn
-import matplotlib.pyplot as plt
 
 '''
 import sys
@@ -13,7 +12,7 @@ import ...
 '''
 
 
-def createData(nPerClust, locations, labels=None, blur=1, xyLabels=('x', 'y'), title='Data', plot=False):
+def createData(nPerClust, locations, labels=None, blur=1, xyLabels=('x', 'y'), title='Data', plot=False, figsize=(5, 5)):
     """
     nPerClust: number of points per cluster
     locations: list of locations of clusters, eg.: [[1,1],[5,1],...]
@@ -30,38 +29,41 @@ def createData(nPerClust, locations, labels=None, blur=1, xyLabels=('x', 'y'), t
         plt.scatter(cluster[0], cluster[1], label=i)
 
     """
+
+
     def noise():
-        return np.random.randn(nPerClust)*blur
+        return np.random.randn(nPerClust) * blur
+
 
     # generate data
     if labels is None:
         labels = range(len(locations))  # [0,1,...]
-    
+
     data = []
-    for i,loc in enumerate(locations):
-        data.append([loc[0]+noise(), loc[1]+noise()])
-        
+    for i, loc in enumerate(locations):
+        data.append([loc[0] + noise(), loc[1] + noise()])
+
     # labels (0 for a, 1 for b) (2n x 1)
-    labels_np = np.vstack([np.ones((nPerClust,1))*label for label in labels])
-    
+    labels_np = np.vstack([np.ones((nPerClust, 1)) * label for label in labels])
+
     # concatanate into a matrix
     data_np = np.hstack(data).T
-     
+
     # convert to a pytorch tensor
     data = torch.tensor(data_np).float()
 
     # convert to a pytorch tensor
     labels = torch.tensor(labels_np).float()
-    
+
     # data for plotting
     clusters = []
-    for i,loc in enumerate(locations):
-        clusters.append([data[np.where(labels_np==i)[0],0], data[np.where(labels_np==i)[0],1]])
-        
+    for i, loc in enumerate(locations):
+        clusters.append([data[np.where(labels_np == i)[0], 0], data[np.where(labels_np == i)[0], 1]])
+
     if plot:
         # figsize 5,5
-        plt.figure(figsize=(5,5))
-        for i,cluster in enumerate(clusters):
+        plt.figure(figsize=figsize)
+        for i, cluster in enumerate(clusters):
             plt.scatter(cluster[0], cluster[1], label=i)
         plt.legend()
         plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
@@ -72,8 +74,5 @@ def createData(nPerClust, locations, labels=None, blur=1, xyLabels=('x', 'y'), t
         plt.title(title)
         plt.show()
         plt.close()
-    
+
     return data, labels, clusters
-
-
-
