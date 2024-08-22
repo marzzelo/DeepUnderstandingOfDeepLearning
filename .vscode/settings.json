@@ -1,5 +1,6 @@
 {
     "python.analysis.autoImportCompletions": true,
     "python.analysis.typeCheckingMode": "off",
-    "svg.preview.background": "editor"
+    "svg.preview.background": "editor",
+    "taipyStudio.gUI.elementsFilePaths": []
 }
